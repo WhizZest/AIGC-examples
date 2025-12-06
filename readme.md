@@ -40,3 +40,6 @@ pip install pillow matplotlib opencv-python
 - accelerate: 用于优化推理速度。
 
 - xformers: (可选) 可以进一步加速推理并减少内存占用。
+
+## 8. 安装ControlNet和IP-Adapter相关依赖
+```pip install diffusers transformers accelerate controlnet_aux pillow opencv-python```
