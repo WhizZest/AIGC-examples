@@ -4,6 +4,7 @@
 ```
 conda create -n aigc python=3.10
 conda activate aigc
+conda install ipykernel
 ```
 
 ## 2. 安装PyTorch（根据你的CUDA版本选择）
@@ -43,3 +44,17 @@ pip install pillow matplotlib opencv-python
 
 ## 8. 安装ControlNet和IP-Adapter相关依赖
 ```pip install diffusers transformers accelerate controlnet_aux pillow opencv-python```
+
+### 9. 安装TTS相关依赖
+由于TTS的依赖版本与其他模型不同，因此需要单独创建环境并安装：
+1. 创建并激活conda环境
+```
+conda create -n tts python=3.10
+conda activate tts
+```
+2. 安装PyTorch（根据你的CUDA版本选择）同上
+3. 安装TTS相关依赖（需要降级transformers，否则运行失败）
+```
+pip install transformers==4.35.2
+pip install TTS[all]
+```
