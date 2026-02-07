@@ -8,10 +8,12 @@ conda install ipykernel
 ```
 
 ## 2. 安装PyTorch（根据你的CUDA版本选择）
-# 对于CUDA 11.8
+# torch + CUDA 11.8
 ```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118```
-# 对于CUDA 12.1
+# torch + CUDA 12.1
 ```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121```
+# torch + CUDA 12.4(推荐，兼容性更好，部分模型需要)
+```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124```
 
 ## 或者对于没有GPU的机器
 pip install torch torchvision torchaudio
@@ -57,4 +59,21 @@ conda activate tts
 ```
 pip install transformers==4.35.2
 pip install TTS[all]
+```
+
+### 10. Tramsformer相关依赖
+1. 核心库
+```
+pip install transformers
+```
+2. 网络库
+```
+pip install requests
+```
+3. 其他
+```
+pip install accelerate  # 必须，用于模型加载
+pip install protobuf    # ChatGLM需要
+pip install sentencepiece  # 某些tokenizer需要
+pip install peft        # 可选，用于模型微调
 ```
