@@ -1,120 +1,115 @@
-# 环境搭建
+# AIGC Examples
 
-## 1. 创建并激活conda环境（推荐）
-```
-conda create -n aigc python=3.10
+这是一个以 **Jupyter Notebook** 为主的 AIGC 学习仓库，涵盖从经典生成模型到扩散模型、视觉理解与语音合成的示例。
+
+## 仓库内容
+
+### 图像生成与编辑
+- `DeepDream.ipynb`：DeepDream 可视化与特征放大
+- `NeuralStyleTransfer.ipynb`：神经风格迁移
+- `StyleGAN2-ADA.ipynb`：StyleGAN2-ADA 训练/推理实践
+- `vae_mnist.ipynb`：VAE 在 MNIST 上的基础示例
+- `DDPM.ipynb`：DDPM 扩散模型示例
+- `StableDiffusion.ipynb`：Stable Diffusion 基础推理
+- `StableDiffusion&ControlNet&IP-Adapter.ipynb`：ControlNet 与 IP-Adapter 条件生成
+
+### 多模态与文本
+- `clip.ipynb`：CLIP 图文对齐示例
+- `text.ipynb`：Transformer/文本任务相关实验
+
+### 语音
+- `xtts_eg.ipynb`：XTTS 语音合成示例
+
+---
+
+## 快速开始（推荐）
+
+### 1) 创建基础环境
+```bash
+conda create -n aigc python=3.10 -y
 conda activate aigc
-conda install ipykernel
+pip install jupyterlab ipykernel ipywidgets
 ```
 
-## 2. 安装PyTorch（根据你的CUDA版本选择）
-# torch + CUDA 11.8
-```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118```
-# torch + CUDA 12.1
-```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121```
-# torch + CUDA 12.4(推荐，兼容性更好，部分模型需要)
-```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124```
+### 2) 安装 PyTorch（二选一）
 
-## 或者对于没有GPU的机器
+GPU（按 CUDA 版本选择）：
+```bash
+# CUDA 11.8
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# CUDA 12.1
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# CUDA 12.4
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+```
+
+CPU：
+```bash
 pip install torch torchvision torchaudio
-
-## 3. 安装StyleGAN2-ADA-PyTorch和相关依赖
-```
-pip install click requests tqdm pyspng ninja imageio-ffmpeg==0.4.3
-pip install pillow matplotlib opencv-python
 ```
 
-## 4. 安装其他有用的库
-```pip install jupyterlab ipywidgets```
-
-## 5. 安装DDPM相关依赖
-```pip install diffusers transformers accelerate```
-
-## 6. 安装CLIP相关依赖
-```pip install clip```
-
-## 7. 安装Stable Diffusion相关依赖
-```pip install diffusers transformers accelerate xformers```
-
-- diffusers: 提供扩散模型的核心实现和管道。
-
-- transformers: 提供文本编码器（CLIP）。
-
-- accelerate: 用于优化推理速度。
-
-- xformers: (可选) 可以进一步加速推理并减少内存占用。
-
-### Stable Diffusion WebUI安装
-1. 克隆仓库，由于主分支最后更新时间是两年前（2024年），dev分支最后更新时间是2025年12月18日，并且根据issue#17213和#17235的反馈，dev分支可以正常使用，因此选择dev分支。
+### 3) 安装通用依赖
+```bash
+pip install pillow matplotlib opencv-python requests tqdm
+pip install diffusers transformers accelerate
 ```
-git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-cd stable-diffusion-webui
-git switch dev
-git pull
-```
-或者
-```
-git clone -b dev https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-cd stable-diffusion-webui
-```
-2. Python环境（二选一）
-方案A：使用Conda（推荐，环境隔离）
-```
-conda create -n sd_webui python=3.10.6 -y
-conda activate sd_webui
-```
-方案B：直接安装Python 3.10.6
-下载：https://www.python.org/ftp/python/3.10.6/python-3.10.6-amd64.exe
-安装时务必勾选"Add Python to PATH"
 
-3. 执行安装脚本，这个过程会构建venv环境
-windows: ```.\webui-user.bat```
-linux/mac: ```./webui.sh```
-4. 解决clip安装失败问题
-如果遇到Clip安装失败：```Couldn't Install Clip```或```ERROR: Failed to build 'https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e4823fc8e1.zip'```，先修复venv环境的构建工具，再安装clip：
+> 说明：大多数 notebook 在以上依赖基础上即可运行。
+
+---
+
+## 按主题补充依赖
+
+### StyleGAN2-ADA
+```bash
+pip install click pyspng ninja imageio-ffmpeg==0.4.3
 ```
-.\venv\Scripts\python.exe -m pip install wheel
-.\venv\Scripts\Python.exe -m pip install "setuptools<70"
-.\venv\Scripts\python.exe -m pip install --no-build-isolation git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1
+
+### Stable Diffusion（可选加速）
+```bash
+pip install xformers
 ```
-5. 继续执行安装脚本
-windows: ```.\webui-user.bat```
-linux/mac: ```./webui.sh```
 
-ps：没测试过linux/mac。
-
-
-
-## 8. 安装ControlNet和IP-Adapter相关依赖
-```pip install diffusers transformers accelerate controlnet_aux pillow opencv-python```
-
-### 9. 安装TTS相关依赖
-由于TTS的依赖版本与其他模型不同，因此需要单独创建环境并安装：
-1. 创建并激活conda环境
+### ControlNet / IP-Adapter
+```bash
+pip install controlnet_aux
 ```
-conda create -n tts python=3.10
+
+### CLIP
+```bash
+pip install clip
+```
+
+---
+
+## XTTS（建议独立环境）
+
+TTS 依赖与常见图像任务存在版本冲突，建议单独环境：
+
+```bash
+conda create -n tts python=3.10 -y
 conda activate tts
-```
-2. 安装PyTorch（根据你的CUDA版本选择）同上
-3. 安装TTS相关依赖（需要降级transformers，否则运行失败）
-```
+# 先安装与你设备匹配的 torch
 pip install transformers==4.35.2
-pip install TTS[all]
+pip install "TTS[all]"
 ```
 
-### 10. Tramsformer相关依赖
-1. 核心库
+---
+
+## 运行方式
+
+```bash
+jupyter lab
 ```
-pip install transformers
-```
-2. 网络库
-```
-pip install requests
-```
-3. 其他
-```
-pip install accelerate  # 必须，用于模型加载
-pip install protobuf    # ChatGLM需要
-pip install sentencepiece  # 某些tokenizer需要
-pip install peft        # 可选，用于模型微调
-```
+
+启动后按需打开对应 notebook。
+
+---
+
+## 说明
+
+- 本仓库重点是学习与实验，不同 notebook 对显存/算力要求不同。
+- 若某个 notebook 报缺包，按报错信息补装即可。
+- 原 README 中的 Stable Diffusion WebUI 安装内容已移除，避免与本仓库 notebook 主线混杂；如有需要建议参考其官方仓库文档。
