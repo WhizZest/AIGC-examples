@@ -98,6 +98,63 @@ pip install "TTS[all]"
 
 ---
 
+## 附录：Stable Diffusion WebUI 安装（可选）
+
+> 该部分与本仓库 notebook 主线相对独立，仅供需要 WebUI 工作流的同学参考。
+
+1) 克隆 `stable-diffusion-webui`（建议 `dev` 分支）
+
+```bash
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+cd stable-diffusion-webui
+git switch dev
+git pull
+```
+
+或：
+
+```bash
+git clone -b dev https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+cd stable-diffusion-webui
+```
+
+2) Python 环境（二选一）
+
+- 方案 A（推荐）：Conda
+
+```bash
+conda create -n sd_webui python=3.10.6 -y
+conda activate sd_webui
+```
+
+- 方案 B：直接安装 Python 3.10.6  
+  下载：https://www.python.org/ftp/python/3.10.6/python-3.10.6-amd64.exe  
+  安装时勾选 `Add Python to PATH`
+
+3) 执行安装脚本（会自动构建 venv）
+
+- Windows：`./webui-user.bat`
+- Linux/macOS：`./webui.sh`
+
+4) 若遇到 CLIP 安装失败（`Couldn't Install Clip` 或类似 `Failed to build ... CLIP ... zip`）
+
+先修复 venv 内构建工具，再安装指定 CLIP 版本：
+
+```bash
+.\venv\Scripts\python.exe -m pip install wheel
+.\venv\Scripts\Python.exe -m pip install "setuptools<70"
+.\venv\Scripts\python.exe -m pip install --no-build-isolation git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1
+```
+
+5) 继续执行安装脚本
+
+- Windows：`./webui-user.bat`
+- Linux/macOS：`./webui.sh`
+
+> 备注：以上流程主要在 Windows 侧更常见，Linux/macOS 请结合官方文档排查。
+
+---
+
 ## 运行方式
 
 ```bash
@@ -112,4 +169,4 @@ jupyter lab
 
 - 本仓库重点是学习与实验，不同 notebook 对显存/算力要求不同。
 - 若某个 notebook 报缺包，按报错信息补装即可。
-- 原 README 中的 Stable Diffusion WebUI 安装内容已移除，避免与本仓库 notebook 主线混杂；如有需要建议参考其官方仓库文档。
+- WebUI 内容已迁移到“附录”章节，既保留信息，也避免干扰 notebook 主线。
