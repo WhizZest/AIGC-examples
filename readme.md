@@ -31,7 +31,7 @@ conda activate aigc
 pip install jupyterlab ipykernel ipywidgets
 ```
 
-### 2) 安装 PyTorch（二选一）
+### 2) 安装 PyTorch
 
 GPU（按 CUDA 版本选择）：
 ```bash
@@ -41,7 +41,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 # CUDA 12.1
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
-# CUDA 12.4
+# CUDA 12.4（推荐，因为text.ipynb的部分示例代码需要PyTorch 2.6才能正确运行，而PyTorch 2.6至少需要CUDA 12.4）
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 ```
 
@@ -169,4 +169,3 @@ jupyter lab
 
 - 本仓库重点是学习与实验，不同 notebook 对显存/算力要求不同。
 - 若某个 notebook 报缺包，按报错信息补装即可。
-- WebUI 内容已迁移到“附录”章节，既保留信息，也避免干扰 notebook 主线。
