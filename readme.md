@@ -19,6 +19,7 @@
 
 ### 语音
 - `xtts_eg.ipynb`：XTTS 语音合成示例
+- `audio.ipynb`：多种语音模型示例，包括Bark文本转语音和VITS语音合成等
 
 ---
 
