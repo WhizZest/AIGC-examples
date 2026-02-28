@@ -20,6 +20,7 @@
 ### 语音
 - `xtts_eg.ipynb`：XTTS 语音合成示例
 - `audio.ipynb`：多种语音模型示例，包括Bark文本转语音和VITS语音合成等
+- [ChatTTS example](https://github.com/2noise/ChatTTS/blob/main/examples/ipynb/example.ipynb)：基于 ChatGPT 的语音合成
 
 ---
 
